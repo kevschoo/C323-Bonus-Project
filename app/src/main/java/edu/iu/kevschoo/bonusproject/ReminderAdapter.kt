@@ -6,10 +6,15 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.iu.kevschoo.bonusproject.databinding.ItemReminderBinding
 
 class ReminderAdapter(
-    var reminders: List<Reminder>,
+    reminders: List<Reminder>,
     private val onReminderClick: (Reminder) -> Unit,
     private val onDeleteClick: (String) -> Unit
 ) : RecyclerView.Adapter<ReminderAdapter.ReminderViewHolder>() {
+    var reminders: List<Reminder> = reminders
+        set(value) {
+            field = value.sortedByDescending { it.noteSavedAt }
+            notifyDataSetChanged()
+        }
     /**
      * ViewHolder for reminder items.
      */
